@@ -33,7 +33,6 @@ let getReposByUsername = (username) => {
       currentRepo.owner = repo.owner.login;
       repoArray.push(currentRepo);
     }
-
     save(repoArray);
   })
   .catch((err) => {

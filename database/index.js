@@ -16,19 +16,28 @@ let repoSchema = new mongoose.Schema({
 
 let Repo = mongoose.model('Repo', repoSchema);
 
-let save = (repoArray) => {
+const save = (repoArray) => {
   // TODO: Your code here
   // This function should save a repo or repos to
   // the MongoDB
   repoArray.forEach((repo) => {
     Repo.create(repo, (err, data) => {
       if (err) {
-        console.log('something was not saved')
+        console.log('A duplicate repo was not saved')
       } else {
-        console.log('something was saved');
+        console.log('A new repo was saved');
       }
     })
   })
-}
+};
+
+const find = (callback) => {
+  Repo.
+  find().
+  sort({stars: 'desc'}).
+  limit(25).
+  exec(callback);
+};
 
 module.exports.save = save;
+module.exports.find = find;

@@ -13,9 +13,23 @@ class App extends React.Component {
 
   }
 
+  componentDidMount() {
+    $.get('/repos', (repoData) => {
+      this.setState({repos: JSON.parse(repoData)})
+    });
+  }
+
   search (username) {
-    // TODO
-    $.post('/repos', {username});
+    $.post('/repos', {username})
+      .done(() => {
+        setTimeout($.get('/repos', (repoData) => {
+          this.setState({repos: JSON.parse(repoData)})
+        }), 1000);
+      })
+      .fail((err) => {
+        throw new Error(err);
+      })
+      ;
   }
 
   render () {
