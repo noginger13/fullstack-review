@@ -3,7 +3,7 @@ import RepoListEntry from './RepoListEntry.jsx';
 
 const RepoList = ({repos}) => (
   <div>
-    These are the most starred {repos.length} repos.
+    These are the {repos.length} most starred repos.
     {repos.map((repo) => {
       return <RepoListEntry repo={repo}/>
     })}

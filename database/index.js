@@ -23,7 +23,7 @@ const save = (repoArray) => {
   repoArray.forEach((repo) => {
     Repo.create(repo, (err, data) => {
       if (err) {
-        console.log('A duplicate repo was not saved')
+        console.log('A duplicate repo was not saved');
       } else {
         console.log('A new repo was saved');
       }

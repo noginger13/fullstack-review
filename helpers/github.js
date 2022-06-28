@@ -36,7 +36,7 @@ let getReposByUsername = (username) => {
     save(repoArray);
   })
   .catch((err) => {
-    throw new Error(err);
+    console.log('user does not exist!');
   })
 }
 
