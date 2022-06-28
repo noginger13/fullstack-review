@@ -1,6 +1,7 @@
 const axios = require('axios');
 const path = require('node:path');
 const config = require('../config.js');
+const {save} = require('../database/index.js');
 
 
 let getReposByUsername = (username) => {
@@ -20,7 +21,20 @@ let getReposByUsername = (username) => {
 
   axios.get(options.url, options)
   .then((repoData) => {
-    return repoData;
+    let repos = repoData.data;
+    let repoArray = [];
+    for (const repo of repos) {
+      let currentRepo = {};
+      currentRepo.repo_id = repo.id;
+      currentRepo.name = repo.name || '';
+      currentRepo.url = repo.html_url;
+      currentRepo.description = repo.description || '';
+      currentRepo.stars = repo.stargazers_count;
+      currentRepo.owner = repo.owner.login;
+      repoArray.push(currentRepo);
+    }
+
+    save(repoArray);
   })
   .catch((err) => {
     throw new Error(err);
